@@ -88,7 +88,7 @@ pipeline {
                     }
             }
         }
-
+     }
 
     stage('Mail Notification') {
       steps {
