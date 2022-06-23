@@ -7,8 +7,8 @@ pipeline {
   stages {
         stage("Tools initialization") {
             steps {
-                sh ''' "mvn --version" '''
-                sh ''' "jdk -version" '''
+                sh "mvn -version"
+                sh "jdk -version"
             }
         }
     stage('Build') {
