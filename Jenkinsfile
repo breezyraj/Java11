@@ -13,7 +13,7 @@ pipeline {
         }
     stage('Build & Test execution') {
       steps {
-        sh 'mvn clean install'
+        sh 'mvn clean test'
       }
 	  post {
                 success {
@@ -72,17 +72,13 @@ pipeline {
       }
     }
 
-    stage('Build Docker image') {
+    stage('Build Docker image & Deploy Docker container') {
       steps {
-        sh 'echo "test"'
+        sh 'docker build -t pipeline_demo .'
+		sh 'docker run --rm --name Demo pipeline_demo'
       }
     }
 
-    stage('Deploy Docker container') {
-      steps {
-        echo 'Hello'
-      }
-    }
 
     stage('Mail Notification') {
       steps {
