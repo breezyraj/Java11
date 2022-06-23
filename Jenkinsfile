@@ -48,16 +48,26 @@ pipeline {
 		}
 	}
 
-        stage('Tagging') {
-          steps {
-            echo 'Hello'
-          }
-        }
-
 
     stage('Publish artifactory') {
       steps {
-        echo 'hell'
+        rtServer (
+                    id: "Jfrog_Server",
+                    url: "http://ec2-13-232-166-125.ap-south-1.compute.amazonaws.com:8082/artifactory",
+                    credentialsId: "jfrog_server"
+                )
+	    rtMavenDeployer (
+                    id: 'maven-deployer',
+                    serverId: 'Jfrog_Server',
+                    releaseRepo: ARTIFACTORY_LOCAL_RELEASE_REPO,
+                    snapshotRepo: ARTIFACTORY_LOCAL_SNAPSHOT_REPO,
+                    threads: 6
+                )
+	     rtMavenRun (
+                    tool: 'Maven_3_5_2',
+                    pom: 'pom.xml',
+                    deployerId: "maven-deployer"
+                )
       }
     }
 
