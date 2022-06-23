@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM openjdk
 
 ADD target/pipeline-0.0.1-SNAPSHOT.jar pipeline-0.0.1-SNAPSHOT.jar
 
