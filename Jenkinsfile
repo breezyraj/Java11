@@ -11,7 +11,6 @@ pipeline {
                 sh ''' "jdk -version" '''
             }
         }
-  stages {
     stage('Build') {
       steps {
         sh 'mvn clean install'
