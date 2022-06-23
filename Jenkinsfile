@@ -78,7 +78,16 @@ pipeline {
 		sh 'docker run --rm --name Demo pipeline_demo'
       }
     }
-
+	
+	stage ('Push Image to Artifactory') {
+            steps {
+                rtDockerPush(
+                    serverId: "Jfrog_Server",
+                    image: "pipeline_demo" + "0.${env.BUILD_NUMBER}",
+                    targetRepo: 'docker-quickstart-local'
+                )
+            }
+        }
 
     stage('Mail Notification') {
       steps {
