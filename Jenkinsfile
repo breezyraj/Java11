@@ -11,7 +11,7 @@ pipeline {
                 sh "java -version"
             }
         }
-    stage('Build & Test execution') {
+    stage('Junit Test execution') {
       steps {
         sh 'mvn clean test'
       }
@@ -49,7 +49,7 @@ pipeline {
 	}
 
 
-    stage('Publish artifactory') {
+    stage('Build & Publish artifactory') {
       steps {
         rtServer (
                     id: "Jfrog_Server",
@@ -72,7 +72,7 @@ pipeline {
       }
     }
 
-    stage('Build Docker image & Deploy Docker container') {
+    stage('Docker image build & Deploy container') {
       steps {
         sh 'docker build -t pipeline_demo .'
 		sh 'docker run --rm --name Demo pipeline_demo'
