@@ -1,12 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Checkout') {
-      steps {
-        sh 'echo "test"'
-      }
-    }
-
     stage('Build') {
       steps {
         echo 'Hello'
@@ -15,12 +9,6 @@ pipeline {
 
     stage('junit') {
       parallel {
-        stage('junit') {
-          steps {
-            sh 'echo "test"'
-          }
-        }
-
         stage('Sonar cloud') {
           steps {
             echo 'Hello'
