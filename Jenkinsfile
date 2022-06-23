@@ -1,9 +1,20 @@
 pipeline {
   agent any
+  tools{
+       maven 'Maven_3_5_2'
+	   jdk 'java11'
+  }
   stages {
-    stage('Build') {
+        stage("Tools initialization") {
+            steps {
+                sh "mvn --version"
+                sh "jdk -version"
+            }
+        }
+  stages {
+    stage('Checkout Code') {
       steps {
-        echo 'Hello'
+        sh 'ls -lrt'
       }
     }
 
