@@ -82,7 +82,7 @@ pipeline {
 	stage ('Push Image to Artifactory') {
             steps {
                 script {
-                    docker.withRegistry('http://ec2-13-232-166-125.ap-south-1.compute.amazonaws.com:8082/docker-quickstart-local', 'jfrog_server') {
+                    docker.withRegistry('http://13.232.166.125:8082', 'jfrog_server') {
                         docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push()
                         docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push("latest")
                     }
