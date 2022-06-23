@@ -82,7 +82,7 @@ pipeline {
 	stage ('Push Image to Artifactory') {
             steps {
                 rtDockerPush(
-                    serverId: 'frog_Server',
+                    serverId: 'Jfrog_Server',
                     image: "pipeline_demo",
                     targetRepo: 'docker-quickstart-local',
                 )
