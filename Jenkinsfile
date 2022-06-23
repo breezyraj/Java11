@@ -7,21 +7,25 @@ pipeline {
   stages {
         stage("Tools initialization") {
             steps {
-                sh "mvn --version"
-                sh "jdk -version"
+                sh ''' "mvn --version" '''
+                sh ''' "jdk -version" '''
             }
         }
   stages {
-    stage('Checkout Code') {
+    stage('Build') {
       steps {
-        sh 'ls -lrt'
+        sh 'mvn clean install'
       }
+	  post {
+                success {
+                    junit 'target/surefire-reports/*.xml' 
+					junit 'target/failsafe-reports/*.xml'
+                }
+            }
     }
 
-    stage('junit') {
-      parallel {
-        stage('Sonar cloud') {
-          steps {
+    stage('Sonar cloud') {
+       steps {
             echo 'Hello'
           }
         }
@@ -32,8 +36,6 @@ pipeline {
           }
         }
 
-      }
-    }
 
     stage('Publish artifactory') {
       steps {
