@@ -28,8 +28,7 @@ pipeline {
                     maximumInstructionCoverage: '80')
                }
                 }
-            }
-    }
+      }
 
     stage('Sonar cloud') {
        steps {
