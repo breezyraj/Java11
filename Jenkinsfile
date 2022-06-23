@@ -11,7 +11,7 @@ pipeline {
                 sh "java -version"
             }
         }
-    stage('Build') {
+    stage('Build & Test execution') {
       steps {
         sh 'mvn clean install'
       }
@@ -30,11 +30,23 @@ pipeline {
                 }
       }
 
-    stage('Sonar cloud') {
-       steps {
-            echo 'Hello'
-          }
-        }
+    stage('SonarCloud') {
+        environment {
+          SCANNER_HOME = tool 'Sonar'
+          ORGANIZATION = "breezyraj"
+          PROJECT_NAME = "breezyraj_Java11"
+      }
+		steps {
+         withSonarQubeEnv('SonarCloudOne') {
+          sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+          -Dsonar.java.binaries=target \
+          -Dsonar.projectKey=$PROJECT_NAME \
+		  -Dsonar.host.url=https://sonarcloud.io \
+		  -Dsonar.login=2b473196771131debaad265214c1205b66ae0b84 \
+          -Dsonar.sources=src'''
+		  }
+		}
+	}
 
         stage('Tagging') {
           steps {
