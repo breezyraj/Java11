@@ -37,7 +37,7 @@ pipeline {
           PROJECT_NAME = "breezyraj_Java11"
       }
 		steps {
-         withSonarQubeEnv('SonarCloudOne') {
+         withSonarQubeEnv('SonarCloud') {
           sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
           -Dsonar.java.binaries=target \
           -Dsonar.projectKey=$PROJECT_NAME \
