@@ -74,8 +74,8 @@ pipeline {
 
     stage('Docker image build & Deploy container') {
       steps {
-        sh 'docker build -t "pipeline_demo" + "0.${env.BUILD_NUMBER}" .'
-		sh 'docker run --rm --name Demo "pipeline_demo" + "0.${env.BUILD_NUMBER}"'
+        sh 'docker build -t pipeline_demo .'
+		sh 'docker run --rm --name Demo pipeline_demo'
       }
     }
 	
@@ -83,11 +83,12 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "Jfrog_Server",
-                    image: "pipeline_demo" + "0.${env.BUILD_NUMBER}",
-                    targetRepo: 'docker-quickstart-local'
+                    image: "pipeline_demo",
+                    targetRepo: 'docker-quickstart-local',
                 )
             }
         }
+
 
     stage('Mail Notification') {
       steps {
