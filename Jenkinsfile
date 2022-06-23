@@ -81,16 +81,10 @@ pipeline {
 	
 	stage ('Push Image to Artifactory') {
             steps {
-			    rtServer (
-                    id: "Jfrog_Server",
-                    url: "http://ec2-13-232-166-125.ap-south-1.compute.amazonaws.com:8082/artifactory",
-                    credentialsId: "jfrog_server"
-                )
-				
                 rtDockerPush(
                     serverId: 'Jfrog_Server',
                     image: "pipeline_demo",
-                    targetRepo: 'docker-quickstart-local',
+                    targetRepo: 'docker-quickstart-local'
                 )
             }
         }
