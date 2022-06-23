@@ -17,8 +17,16 @@ pipeline {
       }
 	  post {
                 success {
-                    junit 'target/surefire-reports/*.xml' 
-					junit 'target/failsafe-reports/*.xml'
+                    junit(allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml')
+					junit(allowEmptyResults: true, testResults: '**/target/maven-failsafe-plugin/*.xml')
+					jacoco(
+                    execPattern: '**/target/**.exec',
+                    classPattern: '**/target/classes',
+                    sourcePattern: '**/src',
+                    changeBuildStatus: true,
+                    minimumInstructionCoverage: '30',
+                    maximumInstructionCoverage: '80')
+               }
                 }
             }
     }
