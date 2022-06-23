@@ -59,8 +59,8 @@ pipeline {
 	    rtMavenDeployer (
                     id: 'maven-deployer',
                     serverId: 'Jfrog_Server',
-                    releaseRepo: libs-release-local,
-                    snapshotRepo: libs-snapshot-local,
+                    releaseRepo:'libs-release-local',
+                    snapshotRepo: 'libs-snapshot-local',
                     threads: 6
                 )
 	     rtMavenRun (
