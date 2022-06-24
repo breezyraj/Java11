@@ -75,11 +75,11 @@ pipeline {
 	stage("Tag and Push") {
 			steps {
                     sh('''   
-                    ver=$( xmlstarlet sel -t -v /project/version pom.xml )
+                    VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-                    git tag -a \${VER -m "[Jenkins CI] New Tag"
-					git push origin \${VER
+                    git tag -a \${VERSION -m "[Jenkins CI] New Tag"
+					git push origin \${VERSION
                 ''')
         }
 	}	
