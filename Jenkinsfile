@@ -74,17 +74,12 @@ pipeline {
 	
 	stage("Tag and Push") {
 			steps {
-			
-			    script {
-					pom = readMavenPom(file: 'pom.xml')
-					version = pom.getVersion()
-				}
-
-                    sh('''                
+                    sh('''   
+                    ver=cat pom.xml | grep "^ <version>.*</version>$" | awk -F'[><]' '{print $3}'					
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-                    git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
-					git push origin \${VERSION}
+                    git tag -a \${VER -m "[Jenkins CI] New Tag"
+					git push origin \${VER
                 ''')
         }
 	}	
