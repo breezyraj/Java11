@@ -79,6 +79,7 @@ pipeline {
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
+					git branch
 					git tag -d \${VERSION}
                     git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
                 ''')
