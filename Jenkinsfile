@@ -75,12 +75,16 @@ pipeline {
 	stage("Tag and Push") {
 			steps {
 			
-			    def version = sh script:'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
-                sh('''                
+			    script {
+					pom = readMavenPom(file: 'target/pom-effective.xml')
+					version = pom.getVersion()
+				}
+
+                    sh('''                
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-                    git tag -a \$VERSION -m "[Jenkins CI] New Tag"
-					git push origin \$VERSION
+                    git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
+					git push origin \${VERSION}
                 ''')
         }
 	}	
@@ -88,7 +92,7 @@ pipeline {
     stage('Docker image build & Deploy container') {
       steps {
         sh 'docker build -t pipeline_demo .'
-		sh 'docker run --rm --name Demo pipeline_demo'	
+		sh 'docker run --rm --name Demo pipeline_demo'		
       }
     }
 		
