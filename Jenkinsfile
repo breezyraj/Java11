@@ -76,7 +76,7 @@ pipeline {
             when { branch 'main' }
             environment { 
                 VERSION = readMavenPom(file: 'pom.xml').getVersion().toLowerCase()
-				sh 'echo $VERSION'
+				echo "VERSION: ${VERSION}"
             }
 			steps {
                 sh('''
