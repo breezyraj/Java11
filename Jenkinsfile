@@ -72,7 +72,8 @@ pipeline {
       }
     }
 	
-	stage("Tag and Push") {
+	stage("Tag and Push") { 
+	       when { branch 'main' }
 			steps {
                     sh('''   
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
@@ -86,7 +87,7 @@ pipeline {
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git push -u origin main \${VERSION}
+                        git push -u origin \${VERSION}
                      """)
                 }
         }
