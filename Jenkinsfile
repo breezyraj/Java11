@@ -71,11 +71,25 @@ pipeline {
                 )
       }
     }
+	
+	stage("Tag and Push") {
+            when { branch 'main' }
+            environment { 
+                VERSION = readMavenPom().getVersion()
+            }
+			steps {
+                sh('''
+                    git config user.name 'Mohanraj'
+                    git config user.email 'breezyraj@gmail.com'
+                    git tag -a \$VERSION -m "[Jenkins CI] New Tag"
+					git push origin \$VERSION
+                ''')
+        }
 
     stage('Docker image build & Deploy container') {
       steps {
         sh 'docker build -t pipeline_demo .'
-		sh 'docker run --rm --name Demo pipeline_demo'
+		sh 'docker run --rm --name Demo pipeline_demo'	
       }
     }
 		
@@ -89,12 +103,12 @@ pipeline {
             }
         }
      }
-
-    stage('Mail Notification') {
-      steps {
-        echo 'hello'
-      }
-    }
-
   }
+  post{
+        always{
+            emailext to: "breezyraj@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+        }
+    }
 }
