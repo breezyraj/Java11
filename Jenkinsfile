@@ -78,8 +78,8 @@ pipeline {
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-                    git tag -a \${VERSION -m "[Jenkins CI] New Tag"
-					git push origin \${VERSION
+                    git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
+					git push origin \${VERSION}
                 ''')
         }
 	}	
