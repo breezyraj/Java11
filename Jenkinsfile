@@ -89,7 +89,7 @@ pipeline {
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git push origin \$VERSION
-						
+						git branch
                      """)
                 }
         }
