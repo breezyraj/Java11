@@ -81,6 +81,14 @@ pipeline {
                     git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
 					git push origin \${VERSION}
                 ''')
+			sshagent(['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
+                    sh("""
+                        #!/usr/bin/env bash
+                        set +x
+                        export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
+                        git push origin \${VERSION}
+                     """)
+                }
         }
 	}	
 
