@@ -75,7 +75,7 @@ pipeline {
 	stage("Tag and Push") {
             when { branch 'main' }
             environment { 
-                VERSION = readMavenPom(file: 'pom.xml').getVersion().toLowerCase
+                VERSION ="readMavenPom(file: 'pom.xml').getVersion().toLowerCase"
             }
 			steps {
                 sh('''
@@ -96,7 +96,7 @@ pipeline {
 		
 	stage ('Push Image to Artifactory') {
             steps {
-                script {
+                script {""
                     docker.withRegistry('http://ec2-3-108-254-235.ap-south-1.compute.amazonaws.com:8082', 'jfrog_server') {
                         docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push()
                         docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push("latest")
