@@ -74,12 +74,14 @@ pipeline {
 	
 	stage("Tag and Push") { 
 			steps {
-                    sh('''
+			    environment { 
+                sh(''' VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) ''')
+            }
+				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
+				sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                 ''')
-				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
-				    sh(''' VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) ''')
                     sh("git tag -a ${VERSION} -m '[Jenkins CI] New Tag'")
                     sh('git push origin --$VERSION')
                 }
