@@ -86,7 +86,7 @@ pipeline {
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git push origin \${VERSION}
+                        git push origin main \${VERSION}
                      """)
                 }
         }
