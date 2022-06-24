@@ -85,6 +85,7 @@ pipeline {
 					git push origin \$VERSION
                 ''')
         }
+	}	
 
     stage('Docker image build & Deploy container') {
       steps {
@@ -104,7 +105,7 @@ pipeline {
         }
      }
   }
-  }
+  
   post{
         always{
             emailext to: "breezyraj@gmail.com",
