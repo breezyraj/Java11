@@ -104,6 +104,7 @@ pipeline {
         }
      }
   }
+  }
   post{
         always{
             emailext to: "breezyraj@gmail.com",
