@@ -73,11 +73,11 @@ pipeline {
     }
 	
 	stage("Tag and Push") {
-            when { branch 'main' }
-            environment { 
-                VERSION ='readMavenPom(file: 'pom.xml').getVersion().toLowerCase'
-            }
 			steps {
+			        script
+                        {
+                         def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true                
+                       }
                 sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
