@@ -75,7 +75,7 @@ pipeline {
 	stage("Tag and Push") {
 			steps {
                     sh('''   
-                    ver=cat pom.xml | grep "^ <version>.*</version>$" | awk -F'[><]' '{print $3}'					
+                    ver= `cat pom.xml | grep "^ <version>.*</version>$" | awk -F'[><]' '{print $3}`
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                     git tag -a \${VER -m "[Jenkins CI] New Tag"
