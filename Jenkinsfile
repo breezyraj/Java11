@@ -74,11 +74,8 @@ pipeline {
 	
 	stage("Tag and Push") {
 			steps {
-			        script
-                        {
-                         def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true                
-                       }
                 sh('''
+				    def version = sh script:'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true                
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                     git tag -a \$VERSION -m "[Jenkins CI] New Tag"
