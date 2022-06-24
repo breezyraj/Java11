@@ -75,8 +75,7 @@ pipeline {
 	stage("Tag and Push") {
             when { branch 'main' }
             environment { 
-                VERSION = readMavenPom(file: 'pom.xml').getVersion().toLowerCase()
-				echo "VERSION: ${VERSION}"
+                VERSION = readMavenPom(file: 'pom.xml').getVersion().toLowerCase
             }
 			steps {
                 sh('''
