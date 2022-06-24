@@ -76,7 +76,7 @@ pipeline {
 			steps {
 			
 			    script {
-					pom = readMavenPom(file: 'target/pom.xml')
+					pom = readMavenPom(file: 'pom.xml')
 					version = pom.getVersion()
 				}
 
