@@ -78,15 +78,14 @@ pipeline {
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-					git branch
-					git tag -d \${VERSION}
-                    git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
                 ''')
-			sshagent(['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
+			sshagent (credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
                     sh("""
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
+						git tag -d \${VERSION}
+						git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
                         git push \$VERSION
                      """)
                 }
