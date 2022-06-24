@@ -79,7 +79,6 @@ pipeline {
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                     git tag -a \${VERSION} -m "[Jenkins CI] New Tag"
-					git push origin \${VERSION}
                 ''')
 			sshagent(['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
                     sh("""
