@@ -79,9 +79,12 @@ pipeline {
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                 ''') 
-				def VERSION = sh(script: 'mvn help:evaluate -Dexpression=project.version -q', returnStdout: true)
-                 sh("git tag -a ${VERSION} -m '[Jenkins CI] New Tag'")
-                 sh('git push origin --$VERSION')
+				script {
+							pom = readMavenPom(file: 'pom.xml')
+							projectVersion = pom.getVersion()
+						}
+                 sh("git tag -a ${projectVersion} -m '[Jenkins CI] New Tag'")
+                 sh('git push origin --$projectVersion')
                 }
         }
 	}	
