@@ -101,7 +101,7 @@ pipeline {
             steps {
 			    rtDockerPush(
                 serverId: "Jfrog_Server",
-                image: "3.108.254.235:8082/docker-quickstart-local/Demo:latest",
+                image: "3.108.254.235:8082/docker-quickstart-local/java11:latest",
                 targetRepo: 'docker-quickstart-local', // where to copy to (from docker-virtual)
                 // Attach custom properties to the published artifacts:
                 properties: 'project-name=java11;status=stable'
