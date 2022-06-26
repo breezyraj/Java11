@@ -76,7 +76,7 @@ pipeline {
 	 
 			steps {
 				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
-				pom = readMavenPom(file: 'pom.xml')
+				def pom = readMavenPom(file: 'pom.xml')
 				def pom_version = pom.version
 				sh('''
                     git config user.name 'Mohanraj'
