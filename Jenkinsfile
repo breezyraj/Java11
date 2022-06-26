@@ -93,7 +93,8 @@ pipeline {
     stage('Docker image build & Deploy container') {
       steps {
         sh 'docker build -t pipeline_demo .'
-		sh 'docker run --rm --name Demo pipeline_demo'		
+		sh 'docker run --rm --name Demo pipeline_demo'	
+        sh 'docker tag 3.108.254.235:8082/docker-quickstart-local/pipeline_demo:latest'
       }
     }
 		
