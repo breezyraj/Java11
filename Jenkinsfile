@@ -100,7 +100,7 @@ pipeline {
 	stage ('Push Image to Artifactory') {
             steps {
 			    rtDockerPush(
-                serverId: "jfrog_server",
+                serverId: "Jfrog_Server",
                 image: "3.108.254.235:8082/docker-quickstart-local/Demo:latest",
                 targetRepo: 'docker-quickstart-local', // where to copy to (from docker-virtual)
                 // Attach custom properties to the published artifacts:
