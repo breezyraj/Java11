@@ -99,12 +99,13 @@ pipeline {
 		
 	stage ('Push Image to Artifactory') {
             steps {
-                script {""
-                    docker.withRegistry('http://ec2-3-108-254-235.ap-south-1.compute.amazonaws.com:8082', 'jfrog_server') {
-                        docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push()
-                        docker.image("docker-quickstart-local/pipeline_demo:${TAG}").push("latest")
-                    }
-            }
+			    rtDockerPush(
+                serverId: "jfrog_server",
+                image: "3.108.254.235:8082/docker-quickstart-local/Demo:latest",
+                targetRepo: 'docker-quickstart-local', // where to copy to (from docker-virtual)
+                // Attach custom properties to the published artifacts:
+                properties: 'project-name=java11;status=stable'
+            )
         }
      }
   }
