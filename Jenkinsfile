@@ -81,8 +81,8 @@ pipeline {
 				sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
-					git tag -d  `{mavenPom.version}`
                 ''') 
+				 sh("git tag -d  ${mavenPom.version}")
                  sh("git tag -a ${mavenPom.version} -m '[Jenkins CI] New Tag'")
                  sh('git push origin --${mavenPom.version}')
                 }
