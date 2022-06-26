@@ -11,7 +11,7 @@ pipeline {
                 sh "java -version"
             }
         }
-    stage('Junit Test execution') {
+    stage('Junit Test execution & Reports') {
       steps {
         sh 'mvn clean test'
       }
@@ -49,7 +49,7 @@ pipeline {
 	}
 
 
-    stage('Build & Publish artifactory') {
+    stage('Build Jar & Publish to artifactory') {
       steps {
         rtServer (
                     id: "Jfrog_Server",
@@ -72,7 +72,7 @@ pipeline {
       }
     }
 	
-	stage("Tag and Push") { 
+	stage("Sourcecode Tag and Push") { 
 	 
 			steps {
 			  script{
@@ -98,12 +98,12 @@ pipeline {
       }
     }
 		
-	stage ('Push Image to Artifactory') {
+	stage ('Push Docker Image to Artifactory') {
             steps {
 			    rtDockerPush(
                 serverId: "Jfrog_Server",
                 image: "3.108.254.235:8082/docker-quickstart-local/pipeline_demo:latest",
-                targetRepo: 'docker-quickstart-local', // where to copy to (from docker-virtual)
+                targetRepo: 'docker-quickstart-local',
                 // Attach custom properties to the published artifacts:
                 properties: 'project-name=java11;status=stable'
             )
