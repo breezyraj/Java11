@@ -75,13 +75,13 @@ pipeline {
 	stage("Tag and Push") { 
 			steps {
 				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
+				def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
 				sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                 ''') 
-				def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-                 sh("git tag -a $POM_VERSION -m '[Jenkins CI] New Tag'")
-                 sh('git push origin --$POM_VERSION')
+                 sh("git tag -a $version -m '[Jenkins CI] New Tag'")
+                 sh('git push origin --$version')
                 }
         }
 	}	
