@@ -75,8 +75,8 @@ pipeline {
 	stage("Tag and Push") { 
 	 
 			steps {
-				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
 				def mavenPom = readMavenPom 'pom.xml'
+				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
 				sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
