@@ -76,14 +76,13 @@ pipeline {
 	 
 			steps {
 				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
-				def pom = readMavenPom(file: 'pom.xml')
-				def pom_version = pom.version
+				def mavenPom = readMavenPom 'pom.xml'
 				sh('''
                     git config user.name 'Mohanraj'
                     git config user.email 'breezyraj@gmail.com'
                 ''') 
-                 sh("git tag -a $pom_version -m '[Jenkins CI] New Tag'")
-                 sh('git push origin --$pom_version')
+                 sh("git tag -a ${mavenPom.version} -m '[Jenkins CI] New Tag'")
+                 sh('git push origin --${mavenPom.version}')
                 }
         }
 	}	
