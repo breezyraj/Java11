@@ -94,7 +94,7 @@ pipeline {
       steps {
         sh 'docker build -t pipeline_demo .'
 		sh 'docker run --rm --name Demo pipeline_demo'	
-        sh 'docker tag 3.108.254.235:8082/docker-quickstart-local/pipeline_demo:latest 3.108.254.235:8082/docker-quickstart-local/v1'
+        sh 'docker tag docker-quickstart-local/pipeline_demo'
       }
     }
 		
