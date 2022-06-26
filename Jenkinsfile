@@ -75,6 +75,7 @@ pipeline {
 	stage("Tag and Push") { 
 	 
 			steps {
+			  script{
 				def mavenPom = readMavenPom 'pom.xml'
 				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
 				sh('''
@@ -84,6 +85,7 @@ pipeline {
                  sh("git tag -a ${mavenPom.version} -m '[Jenkins CI] New Tag'")
                  sh('git push origin --${mavenPom.version}')
                 }
+			}
         }
 	}	
 
