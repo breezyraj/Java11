@@ -76,7 +76,7 @@ pipeline {
 	 
 			steps {
 			  script{
-				def mavenPom = readMavenPom 'pom.xml'
+				def mavenPom = readMavenPom file:'pom.xml'
 				sshagent(credentials: ['2ba71e6a-c6a1-4c32-a86a-adf10364b35b']) {
 				sh('''
                     git config user.name 'Mohanraj'
