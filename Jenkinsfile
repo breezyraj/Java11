@@ -84,7 +84,7 @@ pipeline {
                 ''') 
 				 sh("git tag -d  ${mavenPom.version}")
                  sh("git tag -a ${mavenPom.version} -m '[Jenkins CI] New Tag'")
-                 sh('git push origin --${mavenPom.version}')
+                 sh('git push origin ${mavenPom.version}')
                 }
 			}
         }
